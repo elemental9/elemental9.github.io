@@ -32,11 +32,12 @@
             -webkit-transform: translateX(-50%);
             transform: translateX(-50%);
             position: absolute;
+            width: 600px;
         }
         
         :root .app--content .content--video .video--main {
-            width: 1200px;
-            height: 600px;
+            width: 600px;
+            height: 300px;
             transition: all cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
         }
         
@@ -54,14 +55,10 @@
             transform: translateX(-50%);
         }
         
-        @media only screen and (max-width: 1220px) {
-            .video--main {
-                width: 600px !important;
-                height: 300px !important;
-            }
-        }
-        
         @media only screen and (max-width: 620px) {
+            .content--video {
+                width: 300px !important;
+            }
             .video--main {
                 width: 300px !important;
                 height: 150px !important;
