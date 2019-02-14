@@ -33,6 +33,7 @@
             transform: translateX(-50%);
             position: absolute;
             width: 600px;
+            transition: all cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
         }
         
         :root .app--content .content--video .video--main {
@@ -44,15 +45,6 @@
         :root .app--content .content--video .video--sub {
             background-color: #f44336;
             float: right;
-        }
-        
-        :root .app--credit {
-            position: fixed;
-            bottom: 0px;
-            z-index: 99;
-            left: 50%;
-            -webkit-transform: translateX(-50%);
-            transform: translateX(-50%);
         }
         
         @media only screen and (max-width: 620px) {
@@ -100,6 +92,8 @@
                     </svg>
                     <span class="mdc-list-item__text">Email</span>
                 </a>
+                <hr class="mdc-list-divider">
+                <h6 class="mdc-list-group__subheader">Designed by <a href="https://richienb.github.io">Richie Bendall</a></h6>
             </nav>
         </div>
     </aside>
@@ -128,9 +122,7 @@
                 </a>
             </div>
         </main>
-        <footer class="app--credit">
-            <p class="mdc-typography--body1">Designed by <a href="https://richienb.github.io">Richie Bendall</a></p>
-        </footer>
+
     </div>
 
     <script async src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
