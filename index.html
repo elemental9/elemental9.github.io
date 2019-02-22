@@ -39,12 +39,17 @@
         :root .app--content .content--video .video--main {
             width: 600px;
             height: 300px;
+            display: none;
             transition: all cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
         }
         
         :root .app--content .content--video .video--sub {
             background-color: #f44336;
             float: right;
+        }
+        
+        :root .app--content .content--video .video--login {
+            text-align: center;
         }
         
         @media only screen and (max-width: 620px) {
@@ -94,7 +99,7 @@
                     <span class="mdc-list-item__text">Email</span>
                 </a>
                 <hr class="mdc-list-divider">
-                <h6 class="mdc-list-group__subheader">SSO</h6>
+                <h6 class="mdc-list-group__subheader">Account</h6>
                 <a href="#" class="sso--login mdc-list-item" data-mdc-auto-init="MDCRipple">
                     <svg class="mdc-list-item__graphic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path fill="none" d="M0 0h24v24H0V0z" />
@@ -135,6 +140,7 @@
         <div class="mdc-top-app-bar--fixed-adjust"></div>
         <main class="app--content">
             <div class="content--video">
+                <p class="video--login">Please <a href="#" class="video--login-go">sign in</a> to view the video.</p>
                 <iframe class="video--main" frameborder="0" allowfullscreen=""></iframe>
                 <a href="https://www.youtube.com/channel/UCvstk8b3scrJei6laxaf0hQ?sub_confirmation=1" class="video--sub mdc-button mdc-button--unelevated" data-mdc-auto-init="MDCRipple">
                     <span class="mdc-button__label">SUBSCRIBE</span>
@@ -162,27 +168,33 @@
             open;
         });
 
-        $.getJSON(
-            "https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=UCvstk8b3scrJei6laxaf0hQ",
-            function(_ref) {
-                var items = _ref.items;
-                document.
-                querySelector(".video--main").
-                setAttribute(
-                    "src", "https://www.youtube-nocookie.com/embed/" +
-                    items[0].guid.replace(
-                        "yt:video:",
-                        "") + "?modestbranding=1&amp;rel=0");
-
-            });
-
         var lock = new Auth0Lock(
             "k9eD1CYj1rQHI0GER8pff7efAQuks0tl",
             "richienb.au.auth0.com");
 
+        function loadVideo() {
+            $(".video--login").hide();
+            $(".video--main").show();
+            $.getJSON(
+                "https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=UCvstk8b3scrJei6laxaf0hQ",
+                function(_ref) {
+                    var items = _ref.items;
+                    document.
+                    querySelector(".video--main").
+                    setAttribute(
+                        "src", "https://www.youtube-nocookie.com/embed/" +
+                        items[0].guid.replace(
+                            "yt:video:",
+                            "") + "?modestbranding=1&amp;rel=0");
+
+                });
+
+        }
+
         if (
             JSON.parse(localStorage.getItem("profile")) &&
             localStorage.getItem("token")) {
+            loadVideo();
             $(".sso--login").hide();
 
             $(".sso--logout").show();
@@ -191,6 +203,7 @@
         }
 
         lock.on("authenticated", function(authResult) {
+            loadVideo();
             lock.getUserInfo(authResult.accessToken, function(error, profile) {
                 if (error) {
                     return;
@@ -206,7 +219,7 @@
             });
         });
 
-        $(".sso--login").click(function(e) {
+        $(".sso--login, .video--login-go").click(function(e) {
             e.preventDefault();
 
             lock.show();
@@ -214,6 +227,9 @@
 
         $(".sso--logout").click(function(e) {
             e.preventDefault();
+
+            $(".video--login").show();
+            $(".video--main").hide();
 
             localStorage.removeItem("profile");
 
