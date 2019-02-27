@@ -30,7 +30,7 @@ before_install:
 
 install:
     # Install required packages
-    - yarn install --non-interactive workbox-cli sitemap-generator-cli
+    - yarn add --non-interactive workbox-cli sitemap-generator-cli
 
 script:
     # Generate the service worker
