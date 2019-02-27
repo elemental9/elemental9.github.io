@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription
+	xmlns="http://a9.com/-/spec/opensearch/1.1/"
+	xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+	<ShortName>Elemental Web</ShortName>
+	<LongName>Elemental's Website</LongName>
+	<Description>Search Elemental's Website, right from your browser.</Description>
+	<Url type="text/html" method="get" template="https://www.google.com/search?q={searchTerms}&#38;filter=0&#38;as_sitesearch=elemental9.ml&#38;pws=0&#38;adtest=off" />
+	<Image width="48" height="48">https://www.elemental9.ml/favicon.ico</Image>
+	<InputEncoding>UTF-8</InputEncoding>
+	<Developer>Elemental</Developer>
+	<Attribution>Search provided by Google.</Attribution>
+	<moz:SearchForm>https://www.elemental9.ml</moz:SearchForm>
+</OpenSearchDescription>

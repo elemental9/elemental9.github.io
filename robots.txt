@@ -1,0 +1,4 @@
+User-agent: Browsershots
+Disallow:
+
+Sitemap: https://www.elemental9.ml/sitemap.xml
