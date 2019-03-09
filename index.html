@@ -34,7 +34,7 @@
 
     <link rel="search" type="application/opensearchdescription+xml" href="opensearch.xml" title="Elemental's Website">
 
-    <link rel="stylesheet" href="https://unpkg.com/material-components-web@0.44.1/dist/material-components-web.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/material-components-web@1.0.0/dist/material-components-web.min.css">
 
     <style>
         :root {
@@ -43,23 +43,27 @@
             --mdc-theme-on-primary: #ffffff;
             --mdc-theme-on-secondary: #ffffff;
         }
-
-        :root .app--header {
+        
+        :root body {
+            overflow-x: hidden;
+        }
+        
+        :root body .app--header {
             position: fixed;
             z-index: 7;
         }
-
-        :root .app--container {
+        
+        :root body .app--container {
             transition: all cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
         }
-
-        :root .app--content {
+        
+        :root body .app--content {
             padding: 8px;
             min-width: 100%;
             overflow: auto;
         }
-
-        :root .app--content .content--video {
+        
+        :root body .app--content .content--video {
             left: 50%;
             -webkit-transform: translateX(-50%);
             transform: translateX(-50%);
@@ -67,23 +71,23 @@
             width: 600px;
             transition: all cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
         }
-
-        :root .app--content .content--video .video--main {
+        
+        :root body .app--content .content--video .video--main {
             width: 600px;
             height: 300px;
             display: none;
             transition: all cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
         }
-
-        :root .app--content .content--video .video--sub {
+        
+        :root body .app--content .content--video .video--sub {
             background-color: #f44336;
             float: right;
         }
-
-        :root .app--content .content--video .video--login {
+        
+        :root body .app--content .content--video .video--login {
             text-align: center;
         }
-
+        
         @media only screen and (max-width: 880px) {
             .content--video {
                 width: 300px !important;
@@ -116,7 +120,7 @@
     </header>
     <aside class="app--drawer mdc-drawer mdc-drawer--dismissible mdc-top-app-bar--fixed-adjust" data-mdc-auto-init="MDCDrawer">
         <div class="mdc-drawer__content">
-            <nav class="mdc-list">
+            <nav class="mdc-list drawer--items" data-mdc-auto-init="MDCList">
                 <h6 class="mdc-list-group__subheader">Social</h6>
                 <a class="mdc-list-item" href="https://www.youtube.com/channel/UCvstk8b3scrJei6laxaf0hQ" data-mdc-auto-init="MDCRipple">
                     <svg class="mdc-list-item__graphic" width="24" height="24" viewBox="0 0 24 24">
@@ -175,6 +179,16 @@
         <main class="app--content">
             <div class="content--video">
                 <p class="video--login">Please <a href="#" class="video--login-go">sign in</a> to view the video.</p>
+                <div role="progressbar" class="mdc-linear-progress mdc-linear-progress--indeterminate mdc-linear-progress--closed video--loading" data-mdc-auto-init="MDCLinearProgress">
+                    <div class="mdc-linear-progress__buffering-dots"></div>
+                    <div class="mdc-linear-progress__buffer"></div>
+                    <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+                        <span class="mdc-linear-progress__bar-inner"></span>
+                    </div>
+                    <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+                        <span class="mdc-linear-progress__bar-inner"></span>
+                    </div>
+                </div>
                 <iframe class="video--main" frameborder="0" allowfullscreen=""></iframe>
                 <a href="https://www.youtube.com/channel/UCvstk8b3scrJei6laxaf0hQ?sub_confirmation=1" class="video--sub mdc-button mdc-button--unelevated" data-mdc-auto-init="MDCRipple">
                     <span class="mdc-button__label">SUBSCRIBE</span>
@@ -185,42 +199,49 @@
 
     </div>
     <script async src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-    <script src="https://unpkg.com/material-components-web@0.44.1/dist/material-components-web.min.js"></script>
+    <script src="https://unpkg.com/material-components-web@1.0.0/dist/material-components-web.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.auth0.com/js/lock/11.14.0/lock.min.js"></script>
 
     <script>
         mdc.autoInit();
 
-        document.
-        querySelector(".app--header").
-        MDCTopAppBar.listen("MDCTopAppBar:nav", function() {
-            document.querySelector(
-                ".app--drawer").
-            MDCDrawer.open = !document.querySelector(".mdc-drawer").MDCDrawer.
-            open;
+        $(".drawer--items").get(0).MDCList.wrapFocus = true;
+
+        $(".app--header").
+        get(0).
+        MDCTopAppBar.listen("MDCTopAppBar:nav", () => {
+            $(".app--drawer").get(0).MDCDrawer.open = !document.querySelector(
+                ".mdc-drawer").
+            MDCDrawer.open;
         });
 
-        var lock = new Auth0Lock(
+        const lock = new Auth0Lock(
             "k9eD1CYj1rQHI0GER8pff7efAQuks0tl",
             "richienb.au.auth0.com");
 
         function loadVideo() {
             $(".video--login").hide();
             $(".video--main").show();
-            $.getJSON(
-                "https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=UCvstk8b3scrJei6laxaf0hQ",
-                function(_ref) {
-                    var items = _ref.items;
-                    document.
-                    querySelector(".video--main").
-                    setAttribute(
-                        "src", "https://www.youtube-nocookie.com/embed/" +
-                        items[0].guid.replace(
-                            "yt:video:",
-                            "") + "?modestbranding=1&amp;rel=0");
+            $(".video--loading").
+            get(0).
+            MDCLinearProgress.open();
+            $.when(
+                $.getJSON(
+                    "https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=UCvstk8b3scrJei6laxaf0hQ", ({
+                        items
+                    }) => {
+                        $(".video--main").attr(
+                            "src",
+                            `https://www.youtube-nocookie.com/embed/${items[0].guid.replace(
+    "yt:video:",
+    "")
+    }?modestbranding=1&amp;rel=0`);
 
-                });
+                    })).
+
+            then(
+                $(".video--loading").get(0).MDCLinearProgress.close());
 
         }
 
@@ -235,14 +256,16 @@
             $(".sso--logout").hide();
         }
 
-        lock.on("authenticated", function(authResult) {
+        lock.on("authenticated", ({
+            accessToken
+        }) => {
             loadVideo();
-            lock.getUserInfo(authResult.accessToken, function(error, profile) {
+            lock.getUserInfo(accessToken, (error, profile) => {
                 if (error) {
                     return;
                 }
 
-                localStorage.setItem("token", authResult.accessToken);
+                localStorage.setItem("token", accessToken);
 
                 localStorage.setItem("profile", JSON.stringify(profile));
 
@@ -252,13 +275,13 @@
             });
         });
 
-        $(".sso--login, .video--login-go").click(function(e) {
+        $(".sso--login, .video--login-go").click(e => {
             e.preventDefault();
 
             lock.show();
         });
 
-        $(".sso--logout").click(function(e) {
+        $(".sso--logout").click(e => {
             e.preventDefault();
 
             $(".video--login").show();
@@ -273,25 +296,17 @@
             $(".sso--login").show();
         });
 
-        // Check to make sure service workers are supported in the current browser,
-        // and that the current page is accessed from a secure origin. Using a
-        // service worker from an insecure origin will trigger JS console errors.
-        var isLocalhost = Boolean(window.location.hostname === 'localhost' ||
-            // [::1] is the IPv6 localhost address.
-            window.location.hostname === '[::1]' ||
-            // 127.0.0.1/8 is considered localhost for IPv4.
-            window.location.hostname.match(
-                /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
-            )
-        );
+        if (
+            "serviceWorker" in navigator && (
+                window.location.protocol === "https:" ||
+                window.location.hostname === "localhost" ||
+                window.location.hostname === "[::1]" ||
+                window.location.hostname.match(
+                    /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)))
 
-        // Check if service workers are supported and are needed
-        if ('serviceWorker' in navigator &&
-            (window.location.protocol === 'https:' || isLocalhost)) {
-            // Wait for the window to finish loading to keep everything performing well
-            window.addEventListener('load', () => {
-                // Register the service worker
-                navigator.serviceWorker.register('service-worker.js');
+        {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("service-worker.js");
             });
         }
     </script>
