@@ -20,7 +20,7 @@
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Richie Bendall's Website">
+    <meta name="apple-mobile-web-app-title" content="Elemental's Website">
 
     <link rel="apple-touch-icon" href="images/manifest/icon-48x48.png">
     <link rel="apple-touch-icon" sizes="72x72" href="images/manifest/icon-72x72.png">
@@ -34,36 +34,66 @@
 
     <link rel="search" type="application/opensearchdescription+xml" href="opensearch.xml" title="Elemental's Website">
 
-    <link rel="stylesheet" href="https://unpkg.com/material-components-web@1.0.0/dist/material-components-web.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/material-components-web@1.1.1/dist/material-components-web.min.css">
 
     <style>
-        :root {
+        body {
             --mdc-theme-primary: #2196f3;
             --mdc-theme-secondary: #cddc39;
             --mdc-theme-on-primary: #ffffff;
             --mdc-theme-on-secondary: #ffffff;
-        }
-        
-        :root body {
             overflow-x: hidden;
         }
         
-        :root body .app--header {
+        body .app--header {
             position: fixed;
             z-index: 7;
         }
         
-        :root body .app--container {
+        body .app--drawer .drawer--items #carbonads {
+            color: #637381;
+            line-height: 28px;
+            padding: 0 8px;
+        }
+        
+        body .app--drawer .drawer--items #carbonads .carbon-wrap .carbon-img > img {
+            display: block;
+            margin-right: 9px;
+            max-width: 40% !important;
+            height: auto;
+            float: left;
+        }
+        
+        body .app--drawer .drawer--items #carbonads .carbon-wrap .carbon-text {
+            color: #637381;
+            font-weight: 300;
+            display: block;
+            font-size: 12px;
+            line-height: 15.96px;
+            margin-bottom: 0;
+            text-decoration: none;
+        }
+        
+        body .app--drawer .drawer--items #carbonads .carbon-poweredby {
+            color: #c5cdd0;
+            font-size: 8px;
+            font-weight: 500;
+            line-height: 10px;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+        
+        body .app--container {
             transition: all cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
         }
         
-        :root body .app--content {
+        body .app--content {
             padding: 8px;
             min-width: 100%;
             overflow: auto;
         }
         
-        :root body .app--content .content--video {
+        body .app--content .content--video {
             left: 50%;
             -webkit-transform: translateX(-50%);
             transform: translateX(-50%);
@@ -72,30 +102,30 @@
             transition: all cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
         }
         
-        :root body .app--content .content--video .video--main {
+        @media only screen and (max-width: 880px) {
+            body .app--content .content--video {
+                width: 300px !important;
+            }
+            body .app--content .content--video .video--main {
+                width: 300px !important;
+                height: 150px !important;
+            }
+        }
+        
+        body .app--content .content--video .video--main {
             width: 600px;
             height: 300px;
             display: none;
             transition: all cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
         }
         
-        :root body .app--content .content--video .video--sub {
+        body .app--content .content--video .video--sub {
             background-color: #f44336;
             float: right;
         }
         
-        :root body .app--content .content--video .video--login {
+        body .app--content .content--video .video--login {
             text-align: center;
-        }
-        
-        @media only screen and (max-width: 880px) {
-            .content--video {
-                width: 300px !important;
-            }
-            .video--main {
-                width: 300px !important;
-                height: 150px !important;
-            }
         }
     </style>
 
@@ -121,6 +151,7 @@
     <aside class="app--drawer mdc-drawer mdc-drawer--dismissible mdc-top-app-bar--fixed-adjust" data-mdc-auto-init="MDCDrawer">
         <div class="mdc-drawer__content">
             <nav class="mdc-list drawer--items" data-mdc-auto-init="MDCList">
+                <script async src="https://cdn.carbonads.com/carbon.js?serve=CK7I6K3E&placement=wwwrichie-bendallml" id="_carbonads_js"></script>
                 <h6 class="mdc-list-group__subheader">Social</h6>
                 <a class="mdc-list-item" href="https://www.youtube.com/channel/UCvstk8b3scrJei6laxaf0hQ" data-mdc-auto-init="MDCRipple">
                     <svg class="mdc-list-item__graphic" width="24" height="24" viewBox="0 0 24 24">
@@ -168,15 +199,14 @@
                     <span class="mdc-list-item__text">Logout</span>
                 </a>
                 <hr class="mdc-list-divider">
-                <h6 class="mdc-list-group__subheader">Designed by <a href="https://richienb.github.io">Richie Bendall</a></h6>
+                <h6 class="mdc-list-group__subheader">Produced by <a href="https://richienb.github.io">Richie Bendall</a></h6>
             </nav>
         </div>
     </aside>
 
-    <div class="app--container mdc-drawer-app-content mdc-typography">
-
+    <div class="app--container mdc-drawer-app-content">
         <div class="mdc-top-app-bar--fixed-adjust"></div>
-        <main class="app--content">
+        <main class="app--content mdc-typography">
             <div class="content--video">
                 <p class="video--login">Please <a href="#" class="video--login-go">sign in</a> to view the video.</p>
                 <div role="progressbar" class="mdc-linear-progress mdc-linear-progress--indeterminate mdc-linear-progress--closed video--loading" data-mdc-auto-init="MDCLinearProgress">
@@ -198,117 +228,73 @@
         </main>
 
     </div>
+
     <script async src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-    <script src="https://unpkg.com/material-components-web@1.0.0/dist/material-components-web.min.js"></script>
+    <script src="https://unpkg.com/material-components-web@1.1.1/dist/material-components-web.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdn.auth0.com/js/lock/11.14.0/lock.min.js"></script>
+    <script src="https://cdn.auth0.com/js/lock/11.14.1/lock.min.js"></script>
 
     <script>
         mdc.autoInit();
-
+        
         $(".drawer--items").get(0).MDCList.wrapFocus = true;
-
-        $(".app--header").
-        get(0).
-        MDCTopAppBar.listen("MDCTopAppBar:nav", () => {
-            $(".app--drawer").get(0).MDCDrawer.open = !document.querySelector(
-                ".mdc-drawer").
-            MDCDrawer.open;
+        
+        $(".app--header").get(0).MDCTopAppBar.listen("MDCTopAppBar:nav", function() {
+            $(".app--drawer").get(0).MDCDrawer.open = !$(".mdc-drawer").get(0).MDCDrawer.open;
         });
 
-        const lock = new Auth0Lock(
-            "k9eD1CYj1rQHI0GER8pff7efAQuks0tl",
-            "richienb.au.auth0.com");
+        var lock = new Auth0Lock("k9eD1CYj1rQHI0GER8pff7efAQuks0tl", "richienb.au.auth0.com");
 
-        function loadVideo() {
+        var loadVideo = function loadVideo() {
             $(".video--login").hide();
             $(".video--main").show();
-            $(".video--loading").
-            get(0).
-            MDCLinearProgress.open();
-            $.when(
-                $.getJSON(
-                    "https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=UCvstk8b3scrJei6laxaf0hQ", ({
-                        items
-                    }) => {
-                        $(".video--main").attr(
-                            "src",
-                            `https://www.youtube-nocookie.com/embed/${items[0].guid.replace(
-    "yt:video:",
-    "")
-    }?modestbranding=1&amp;rel=0`);
+            $(".video--loading").get(0).MDCLinearProgress.open();
+            $.getJSON("https://api.rss2json.com/v1/api.json?rss_url=https://www.youtube.com/feeds/videos.xml?channel_id=UCvstk8b3scrJei6laxaf0hQ", function(_ref) {
+                var items = _ref.items;
+                $(".video--main").attr("src", "https://www.youtube-nocookie.com/embed/" + items[0].guid.replace("yt:video:", "") + "?modestbranding=1&amp;rel=0");
+                $(".video--loading").get(0).MDCLinearProgress.close();
+            });
+        };
 
-                    })).
-
-            then(
-                $(".video--loading").get(0).MDCLinearProgress.close());
-
-        }
-
-        if (
-            JSON.parse(localStorage.getItem("profile")) &&
-            localStorage.getItem("token")) {
+        if (JSON.parse(localStorage.getItem("profile")) && localStorage.getItem("token")) {
             loadVideo();
             $(".sso--login").hide();
-
             $(".sso--logout").show();
         } else {
             $(".sso--logout").hide();
         }
 
-        lock.on("authenticated", ({
-            accessToken
-        }) => {
+        lock.on("authenticated", function(_ref2) {
+            var accessToken = _ref2.accessToken;
             loadVideo();
-            lock.getUserInfo(accessToken, (error, profile) => {
+            lock.getUserInfo(accessToken, function(error, profile) {
                 if (error) {
                     return;
                 }
 
                 localStorage.setItem("token", accessToken);
-
                 localStorage.setItem("profile", JSON.stringify(profile));
-
                 $(".sso--login").hide();
-
                 $(".sso--logout").show();
             });
         });
-
-        $(".sso--login, .video--login-go").click(e => {
+        
+        $(".sso--login, .video--login-go").click(function(e) {
             e.preventDefault();
-
             lock.show();
         });
-
-        $(".sso--logout").click(e => {
+        
+        $(".sso--logout").click(function(e) {
             e.preventDefault();
-
             $(".video--login").show();
             $(".video--main").hide();
-
             localStorage.removeItem("profile");
-
             localStorage.removeItem("token");
-
             $(".sso--logout").hide();
-
             $(".sso--login").show();
         });
-
-        if (
-            "serviceWorker" in navigator && (
-                window.location.protocol === "https:" ||
-                window.location.hostname === "localhost" ||
-                window.location.hostname === "[::1]" ||
-                window.location.hostname.match(
-                    /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)))
-
-        {
-            $(window).on("load", () => {
-                navigator.serviceWorker.register("service-worker.js");
-            });
-        }
+        
+        if ("serviceWorker" in navigator && (window.location.protocol === "https:" || window.location.hostname === "localhost" || window.location.hostname === "[::1]" || window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/))) $(document).ready(navigator.serviceWorker.register("service-worker.js"));
     </script>
 
 </body>
