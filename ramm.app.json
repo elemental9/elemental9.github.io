@@ -1,0 +1,11 @@
+{
+    "type": "ramm-app",
+    "spec": 0,
+    "id": "elemental-website",
+    "name": "Elemental's Website",
+    "source": "https://github.com/elemental9/elemental9.github.io/archive/master.zip",
+    "root": "elemental9.github.io-master",
+    "icon": "images/manifest/icon-48x48.png",
+    "start": "index.html",
+    "themecolour": "#2196f3",
+}
