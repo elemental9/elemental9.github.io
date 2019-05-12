@@ -7,5 +7,5 @@
     "root": "elemental9.github.io-master",
     "icon": "images/manifest/icon-48x48.png",
     "start": "index.html",
-    "themecolour": "#2196f3",
+    "themecolour": "#2196f3"
 }
